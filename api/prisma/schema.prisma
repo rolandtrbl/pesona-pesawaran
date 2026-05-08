@@ -1,0 +1,44 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Tabel Induk: Destinasi (Pulau Pahawang, dll)
+model Wisata {
+  id          Int         @id @default(autoincrement())
+  nama        String
+  deskripsi   String
+  lokasi      String
+  gambarUrl   String?
+  paketTrips  PaketTrip[] // Relasi ke tabel Paket
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+// Tabel Anak: Pilihan Paket (Pahawang 1 Hari, Pahawang Inap, dll)
+model PaketTrip {
+  id               Int       @id @default(autoincrement())
+  namaPaket        String
+  wisataId         Int
+  wisata           Wisata    @relation(fields: [wisataId], references: [id])
+  harga            Int
+  kuotaMaksimal    Int
+  tanggalBerangkat DateTime
+  bookings         Booking[] // Relasi ke tabel Booking
+}
+
+// Tabel Transaksi: Pesanan dari User
+model Booking {
+  id             Int       @id @default(autoincrement())
+  paketId        Int
+  paket          PaketTrip @relation(fields: [paketId], references: [id])
+  namaPeserta    String
+  nomorWhatsApp  String
+  jumlahOrang    Int
+  totalHarga     Int
+  statusBayar    String    @default("PENDING") // PENDING, LUNAS, BATAL
+  createdAt      DateTime  @default(now())
+}
