@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../../data/datasource/favorite_data.dart';
 
-class FavoritePage extends StatelessWidget {
+class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
+  @override
+  State<FavoritePage> createState() => _FavoritePageState();
+}
+
+class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +28,18 @@ class FavoritePage extends StatelessWidget {
 
       body: Padding(
         padding: const EdgeInsets.all(20),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               padding: const EdgeInsets.all(18),
+
               decoration: BoxDecoration(
                 color: Colors.pink.shade50,
                 borderRadius: BorderRadius.circular(20),
               ),
+
               child: const Row(
                 children: [
                   Icon(
@@ -38,13 +47,12 @@ class FavoritePage extends StatelessWidget {
                     color: Colors.red,
                     size: 32,
                   ),
+
                   SizedBox(width: 12),
+
                   Expanded(
                     child: Text(
                       'Simpan wisata favoritmu agar lebih mudah ditemukan kembali.',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
                     ),
                   ),
                 ],
@@ -64,30 +72,33 @@ class FavoritePage extends StatelessWidget {
             const SizedBox(height: 15),
 
             Expanded(
-              child: ListView(
-                children: [
-                  wisataCard(
-                    nama: 'Pantai Mutun',
-                    lokasi: 'Pesawaran, Lampung',
-                    gambar:
-                        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
-                  ),
+              child: FavoriteData.favorites.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'Belum ada wisata favorit ❤️',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: FavoriteData.favorites.length,
 
-                  wisataCard(
-                    nama: 'Pulau Pahawang',
-                    lokasi: 'Pesawaran, Lampung',
-                    gambar:
-                        'https://images.unsplash.com/photo-1500375592092-40eb2168fd21',
-                  ),
+                      itemBuilder: (context, index) {
+                        final wisata =
+                            FavoriteData.favorites[index];
 
-                  wisataCard(
-                    nama: 'Pantai Sari Ringgung',
-                    lokasi: 'Pesawaran, Lampung',
-                    gambar:
-                        'https://images.unsplash.com/photo-1519046904884-53103b34b206',
-                  ),
-                ],
-              ),
+                        return wisataCard(
+                          wisata: wisata,
+                          onDelete: () {
+                            setState(() {
+                              FavoriteData.favorites
+                                  .removeAt(index);
+                            });
+                          },
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -95,16 +106,17 @@ class FavoritePage extends StatelessWidget {
     );
   }
 
-  static Widget wisataCard({
-    required String nama,
-    required String lokasi,
-    required String gambar,
+  Widget wisataCard({
+    required Map<String, dynamic> wisata,
+    required VoidCallback onDelete,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
+
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(22),
+
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -115,13 +127,15 @@ class FavoritePage extends StatelessWidget {
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(22),
             ),
+
             child: Image.network(
-              gambar,
+              wisata['image'],
               height: 180,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -130,11 +144,14 @@ class FavoritePage extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.all(16),
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 Text(
-                  nama,
+                  wisata['title'],
+
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -153,10 +170,12 @@ class FavoritePage extends StatelessWidget {
 
                     const SizedBox(width: 4),
 
-                    Text(
-                      lokasi,
-                      style: const TextStyle(
-                        color: Colors.grey,
+                    Expanded(
+                      child: Text(
+                        wisata['location'],
+                        style: const TextStyle(
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ],
@@ -167,21 +186,27 @@ class FavoritePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment:
                       MainAxisAlignment.spaceBetween,
+
                   children: [
-                    const Row(
+                    Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.orange,
                           size: 18,
                         ),
-                        SizedBox(width: 4),
-                        Text('4.8'),
+
+                        const SizedBox(width: 4),
+
+                        Text(
+                          wisata['rating'],
+                        ),
                       ],
                     ),
 
                     IconButton(
-                      onPressed: () {},
+                      onPressed: onDelete,
+
                       icon: const Icon(
                         Icons.favorite,
                         color: Colors.red,

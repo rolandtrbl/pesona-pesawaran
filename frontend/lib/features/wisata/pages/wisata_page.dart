@@ -1,3 +1,4 @@
+import '../../detail/pages/detail_wisata_page.dart';
 import 'package:flutter/material.dart';
 
 class WisataPage extends StatelessWidget {
@@ -6,35 +7,154 @@ class WisataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> wisataList = [
+  {
+    'title': 'Pantai Mutun',
+    'location': 'Pesawaran, Lampung',
+    'rating': '4.8',
+    'image':
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+
+    'description':
+        'Pantai Mutun merupakan salah satu destinasi wisata favorit di Pesawaran yang terkenal dengan pasir putih, air laut yang jernih, serta pemandangan matahari terbenam yang indah.',
+
+    'ticket': 'Rp 25.000',
+
+    'open': '08.00 - 17.00',
+
+    'distance': '12 Km',
+
+    'facilities': [
+      'Parkir',
+      'Toilet',
+      'Warung',
+      'Spot Foto',
+    ],
+
+    'reviews': [
       {
-        'title': 'Pantai Mutun',
-        'location': 'Pesawaran, Lampung',
-        'rating': '4.8',
-        'image':
-            'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+        'name': 'Andi',
+        'rating': '5',
+        'comment': 'Pantainya bersih dan pemandangannya luar biasa.',
       },
       {
-        'title': 'Pulau Pahawang',
-        'location': 'Pesawaran, Lampung',
-        'rating': '4.9',
-        'image':
-            'https://images.unsplash.com/photo-1493558103817-58b2924bce98',
+        'name': 'nayla rima khaylila',
+        'rating': '4',
+        'comment': 'Cocok untuk liburan keluarga.',
+      },
+    ],
+  },
+
+  {
+    'title': 'Pulau Pahawang',
+    'location': 'Pesawaran, Lampung',
+    'rating': '4.9',
+    'image':
+        'https://images.unsplash.com/photo-1493558103817-58b2924bce98',
+
+    'description':
+        'Pulau Pahawang terkenal dengan keindahan bawah lautnya. Wisatawan dapat menikmati snorkeling, diving, dan panorama pulau yang sangat memukau.',
+
+    'ticket': 'Rp 35.000',
+
+    'open': '07.00 - 18.00',
+
+    'distance': '20 Km',
+
+    'facilities': [
+      'Snorkeling',
+      'Toilet',
+      'Penginapan',
+      'Perahu',
+    ],
+
+    'reviews': [
+      {
+        'name': 'Rina',
+        'rating': '5',
+        'comment': 'Air lautnya jernih banget.',
       },
       {
-        'title': 'Teluk Kiluan',
-        'location': 'Tanggamus, Lampung',
-        'rating': '4.7',
-        'image':
-            'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+        'name': 'Fajar',
+        'rating': '5',
+        'comment': 'Surga bawah laut Lampung.',
+      },
+    ],
+  },
+
+  {
+    'title': 'Teluk Kiluan',
+    'location': 'Tanggamus, Lampung',
+    'rating': '4.7',
+    'image':
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+
+    'description':
+        'Teluk Kiluan merupakan destinasi wisata bahari yang terkenal dengan atraksi lumba-lumba liar dan panorama laut yang menakjubkan.',
+
+    'ticket': 'Rp 20.000',
+
+    'open': '06.00 - 17.00',
+
+    'distance': '35 Km',
+
+    'facilities': [
+      'Toilet',
+      'Parkir',
+      'Spot Foto',
+      'Perahu',
+    ],
+
+    'reviews': [
+      {
+        'name': 'Dian',
+        'rating': '5',
+        'comment': 'Lumba-lumbanya keren banget.',
       },
       {
-        'title': 'Bukit Cendana',
-        'location': 'Pesawaran, Lampung',
-        'rating': '4.6',
-        'image':
-            'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee',
+        'name': 'Asep',
+        'rating': '4',
+        'comment': 'Perjalanan jauh tapi worth it.',
       },
-    ];
+    ],
+  },
+
+  {
+    'title': 'Bukit Cendana',
+    'location': 'Pesawaran, Lampung',
+    'rating': '4.6',
+    'image':
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee',
+
+    'description':
+        'Bukit Cendana menawarkan pemandangan alam dari ketinggian dengan suasana sejuk dan cocok untuk menikmati sunrise maupun sunset.',
+
+    'ticket': 'Rp 15.000',
+
+    'open': '24 Jam',
+
+    'distance': '8 Km',
+
+    'facilities': [
+      'Parkir',
+      'Camping',
+      'Spot Foto',
+      'Warung',
+    ],
+
+    'reviews': [
+      {
+        'name': 'Yoga',
+        'rating': '5',
+        'comment': 'View sunrise terbaik.',
+      },
+      {
+        'name': 'Toni',
+        'rating': '4',
+        'comment': 'Tempatnya adem dan tenang.',
+      },
+    ],
+  },
+];
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
@@ -44,10 +164,7 @@ class WisataPage extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'Wisata',
-          style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
         ),
       ),
 
@@ -148,8 +265,7 @@ class WisataPage extends StatelessWidget {
                           padding: const EdgeInsets.all(18),
 
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
 
                             children: [
                               Text(
@@ -176,9 +292,7 @@ class WisataPage extends StatelessWidget {
                                   Text(
                                     wisata['location'],
 
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                    ),
+                                    style: const TextStyle(color: Colors.grey),
                                   ),
                                 ],
                               ),
@@ -203,36 +317,36 @@ class WisataPage extends StatelessWidget {
                                         wisata['rating'],
 
                                         style: const TextStyle(
-                                          fontWeight:
-                                              FontWeight.bold,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ],
                                   ),
 
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (_) => DetailWisataPage(
+                                                wisata: wisata,
+                                              ),
+                                        ),
+                                      );
+                                    },
 
-                                    style:
-                                        ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          const Color(
-                                              0xFF4A90E2),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFF4A90E2),
 
-                                      shape:
-                                          RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius
-                                                .circular(14),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(14),
                                       ),
                                     ),
 
                                     child: const Text(
                                       'Detail',
-
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ],
@@ -256,22 +370,15 @@ class WisataPage extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 12),
 
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
 
       decoration: BoxDecoration(
-        color:
-            active ? const Color(0xFF4A90E2) : Colors.white,
+        color: active ? const Color(0xFF4A90E2) : Colors.white,
 
         borderRadius: BorderRadius.circular(14),
 
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-          ),
+          BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8),
         ],
       ),
 
