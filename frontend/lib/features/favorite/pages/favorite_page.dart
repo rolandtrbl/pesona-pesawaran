@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/datasource/favorite_data.dart';
+import '../../detail/pages/detail_wisata_page.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
@@ -85,16 +86,23 @@ class _FavoritePageState extends State<FavoritePage> {
                       itemCount: FavoriteData.favorites.length,
 
                       itemBuilder: (context, index) {
-                        final wisata =
-                            FavoriteData.favorites[index];
+                        final wisata = FavoriteData.favorites[index];
 
                         return wisataCard(
+                          context: context,
                           wisata: wisata,
                           onDelete: () {
                             setState(() {
-                              FavoriteData.favorites
-                                  .removeAt(index);
+                              FavoriteData.favorites.removeAt(index);
                             });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Wisata dihapus dari favorit 💔',
+                                ),
+                              ),
+                            );
                           },
                         );
                       },
@@ -107,117 +115,132 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   Widget wisataCard({
+    required BuildContext context,
     required Map<String, dynamic> wisata,
     required VoidCallback onDelete,
   }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
-
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-          ),
-        ],
-      ),
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(22),
-            ),
-
-            child: Image.network(
-              wisata['image'],
-              height: 180,
-              width: double.infinity,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () async {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => DetailWisataPage(
+              wisata: wisata,
             ),
           ),
+        );
 
-          Padding(
-            padding: const EdgeInsets.all(16),
+        setState(() {});
+      },
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
 
-              children: [
-                Text(
-                  wisata['title'],
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(22),
 
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+            ),
+          ],
+        ),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(22),
+              ),
+
+              child: Image.network(
+                wisata['image'],
+                height: 180,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(16),
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  Text(
+                    wisata['title'],
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 6),
+                  const SizedBox(height: 6),
 
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      size: 16,
-                      color: Colors.grey,
-                    ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        size: 16,
+                        color: Colors.grey,
+                      ),
 
-                    const SizedBox(width: 4),
+                      const SizedBox(width: 4),
 
-                    Expanded(
-                      child: Text(
-                        wisata['location'],
-                        style: const TextStyle(
-                          color: Colors.grey,
+                      Expanded(
+                        child: Text(
+                          wisata['location'],
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
 
-                const SizedBox(height: 12),
+                  const SizedBox(height: 12),
 
-                Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
 
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.orange,
-                          size: 18,
-                        ),
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.orange,
+                            size: 18,
+                          ),
 
-                        const SizedBox(width: 4),
+                          const SizedBox(width: 4),
 
-                        Text(
-                          wisata['rating'],
-                        ),
-                      ],
-                    ),
-
-                    IconButton(
-                      onPressed: onDelete,
-
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
+                          Text(
+                            wisata['rating'].toString(),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ],
+
+                      IconButton(
+                        onPressed: onDelete,
+
+                        icon: const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
