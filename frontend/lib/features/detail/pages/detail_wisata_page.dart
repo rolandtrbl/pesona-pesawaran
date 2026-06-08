@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../data/datasource/favorite_data.dart';
 
 class DetailWisataPage extends StatefulWidget {
@@ -335,14 +336,28 @@ class _DetailWisataPageState extends State<DetailWisataPage> {
                             style: TextStyle(color: Colors.white),
                           ),
 
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Fitur Google Maps segera hadir 🗺️',
-                                ),
-                              ),
+                          onPressed: () async {
+                            final lokasi =
+                                widget.wisata['location'] ?? 'Pesawaran';
+
+                            final uri = Uri.parse(
+                              'https://www.google.com/maps/search/?api=1&query=$lokasi',
                             );
+
+                            try {
+                              await launchUrl(
+                                uri,
+                                mode: LaunchMode.platformDefault,
+                              );
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Tidak dapat membuka Google Maps',
+                                  ),
+                                ),
+                              );
+                            }
                           },
 
                           style: ElevatedButton.styleFrom(
