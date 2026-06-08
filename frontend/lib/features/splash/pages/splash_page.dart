@@ -13,13 +13,17 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+
   @override
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 2), () {
-      Get.offAllNamed(AppPages.home);
-    });
+    Timer(
+      const Duration(seconds: 2),
+      () {
+        Get.offAllNamed(AppPages.navbar);
+      },
+    );
   }
 
   @override
