@@ -153,10 +153,20 @@ class _WisataPageState extends State<WisataPage> {
         ),
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(20),
+      body: RefreshIndicator(
+  onRefresh: () async {
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
 
-        child: Column(
+    setState(() {});
+  },
+
+  child: Padding(
+    padding: const EdgeInsets.all(20),
+
+    child: Column(
+
           children: [
             // SEARCH
             Container(
@@ -354,6 +364,7 @@ class _WisataPageState extends State<WisataPage> {
           ],
         ),
       ),
+    )
     );
   }
 
