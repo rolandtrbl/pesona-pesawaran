@@ -65,10 +65,56 @@ class _FavoritePageState extends State<FavoritePage> {
             Expanded(
               child:
                   FavoriteData.favorites.isEmpty
-                      ? const Center(
-                        child: Text(
-                          'Belum ada wisata favorit ❤️',
-                          style: TextStyle(fontSize: 16),
+                      ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.favorite_border,
+                              size: 90,
+                              color: Colors.grey.shade400,
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            const Text(
+                              'Belum Ada Wisata Favorit',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            Text(
+                              'Tambahkan wisata favoritmu\nagar lebih mudah ditemukan kembali.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontSize: 15,
+                              ),
+                            ),
+
+                            const SizedBox(height: 25),
+
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+
+                              icon: const Icon(Icons.explore),
+
+                              label: const Text('Jelajahi Wisata'),
+
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 12,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                       : ListView.builder(
@@ -208,7 +254,41 @@ class _FavoritePageState extends State<FavoritePage> {
                       ),
 
                       IconButton(
-                        onPressed: onDelete,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Hapus Favorit'),
+                                content: const Text(
+                                  'Yakin ingin menghapus wisata ini dari daftar favorit?',
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Batal'),
+                                  ),
+
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      onDelete();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red,
+                                    ),
+                                    child: const Text(
+                                      'Hapus',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
 
                         icon: const Icon(Icons.favorite, color: Colors.red),
                       ),
