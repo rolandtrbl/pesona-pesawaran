@@ -20,10 +20,7 @@ class _FavoritePageState extends State<FavoritePage> {
         elevation: 0,
         title: const Text(
           'Favorit',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
 
@@ -43,11 +40,7 @@ class _FavoritePageState extends State<FavoritePage> {
 
               child: const Row(
                 children: [
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 32,
-                  ),
+                  Icon(Icons.favorite, color: Colors.red, size: 32),
 
                   SizedBox(width: 12),
 
@@ -64,49 +57,46 @@ class _FavoritePageState extends State<FavoritePage> {
 
             const Text(
               'Wisata Favorit',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 15),
 
             Expanded(
-              child: FavoriteData.favorites.isEmpty
-                  ? const Center(
-                      child: Text(
-                        'Belum ada wisata favorit ❤️',
-                        style: TextStyle(
-                          fontSize: 16,
+              child:
+                  FavoriteData.favorites.isEmpty
+                      ? const Center(
+                        child: Text(
+                          'Belum ada wisata favorit ❤️',
+                          style: TextStyle(fontSize: 16),
                         ),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: FavoriteData.favorites.length,
+                      )
+                      : ListView.builder(
+                        itemCount: FavoriteData.favorites.length,
 
-                      itemBuilder: (context, index) {
-                        final wisata = FavoriteData.favorites[index];
+                        itemBuilder: (context, index) {
+                          final wisata = FavoriteData.favorites[index];
 
-                        return wisataCard(
-                          context: context,
-                          wisata: wisata,
-                          onDelete: () {
-                            setState(() {
-                              FavoriteData.favorites.removeAt(index);
-                            });
+                          return wisataCard(
+                            context: context,
+                            wisata: wisata,
+                            onDelete: () {
+                              setState(() {
+                                FavoriteData.favorites.removeAt(index);
+                                FavoriteData.saveFavorites();
+                              });
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Wisata dihapus dari favorit 💔',
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Wisata dihapus dari favorit 💔',
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                              );
+                            },
+                          );
+                        },
+                      ),
             ),
           ],
         ),
@@ -123,11 +113,7 @@ class _FavoritePageState extends State<FavoritePage> {
       onTap: () async {
         await Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (_) => DetailWisataPage(
-              wisata: wisata,
-            ),
-          ),
+          MaterialPageRoute(builder: (_) => DetailWisataPage(wisata: wisata)),
         );
 
         setState(() {});
@@ -195,9 +181,7 @@ class _FavoritePageState extends State<FavoritePage> {
                       Expanded(
                         child: Text(
                           wisata['location'],
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                       ),
                     ],
@@ -206,8 +190,7 @@ class _FavoritePageState extends State<FavoritePage> {
                   const SizedBox(height: 12),
 
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                     children: [
                       Row(
@@ -220,19 +203,14 @@ class _FavoritePageState extends State<FavoritePage> {
 
                           const SizedBox(width: 4),
 
-                          Text(
-                            wisata['rating'].toString(),
-                          ),
+                          Text(wisata['rating'].toString()),
                         ],
                       ),
 
                       IconButton(
                         onPressed: onDelete,
 
-                        icon: const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
+                        icon: const Icon(Icons.favorite, color: Colors.red),
                       ),
                     ],
                   ),
