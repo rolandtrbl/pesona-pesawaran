@@ -254,7 +254,41 @@ class _FavoritePageState extends State<FavoritePage> {
                       ),
 
                       IconButton(
-                        onPressed: onDelete,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Hapus Favorit'),
+                                content: const Text(
+                                  'Yakin ingin menghapus wisata ini dari daftar favorit?',
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Batal'),
+                                  ),
+
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      onDelete();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red,
+                                    ),
+                                    child: const Text(
+                                      'Hapus',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
 
                         icon: const Icon(Icons.favorite, color: Colors.red),
                       ),
