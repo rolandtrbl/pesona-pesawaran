@@ -64,30 +64,18 @@ class _DetailWisataPageState extends State<DetailWisataPage> {
                     isFavorite ? Icons.favorite : Icons.favorite_border,
                     color: Colors.red,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       if (isFavorite) {
                         FavoriteData.favorites.remove(widget.wisata);
-
                         isFavorite = false;
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Dihapus dari favorit 💔'),
-                          ),
-                        );
                       } else {
                         FavoriteData.favorites.add(widget.wisata);
-
                         isFavorite = true;
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Ditambahkan ke favorit ❤️'),
-                          ),
-                        );
                       }
                     });
+
+                    await FavoriteData.saveFavorites();
                   },
                 ),
               ),
@@ -302,18 +290,18 @@ class _DetailWisataPageState extends State<DetailWisataPage> {
                             style: TextStyle(color: Colors.white),
                           ),
 
-                          onPressed: () {
+                          onPressed: () async {
                             setState(() {
                               if (isFavorite) {
                                 FavoriteData.favorites.remove(widget.wisata);
-
                                 isFavorite = false;
                               } else {
                                 FavoriteData.favorites.add(widget.wisata);
-
                                 isFavorite = true;
                               }
                             });
+
+                            await FavoriteData.saveFavorites();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF4A90E2),
@@ -341,8 +329,10 @@ class _DetailWisataPageState extends State<DetailWisataPage> {
                                 widget.wisata['location'] ?? 'Pesawaran';
 
                             final uri = Uri.parse(
-                              'https://www.google.com/maps/search/?api=1&query=$lokasi',
+                              'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(lokasi)}',
                             );
+
+                            final messenger = ScaffoldMessenger.of(context);
 
                             try {
                               await launchUrl(
@@ -350,7 +340,7 @@ class _DetailWisataPageState extends State<DetailWisataPage> {
                                 mode: LaunchMode.platformDefault,
                               );
                             } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
+                              messenger.showSnackBar(
                                 const SnackBar(
                                   content: Text(
                                     'Tidak dapat membuka Google Maps',
