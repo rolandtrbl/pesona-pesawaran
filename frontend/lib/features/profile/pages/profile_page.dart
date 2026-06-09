@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../data/datasource/favorite_data.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -59,7 +60,13 @@ class ProfilePage extends StatelessWidget {
             // STATS
             Row(
               children: [
-                Expanded(child: statCard('12', 'Favorite', Icons.favorite)),
+                Expanded(
+                  child: statCard(
+                    FavoriteData.favorites.length.toString(),
+                    'Favorite',
+                    Icons.favorite,
+                  ),
+                ),
 
                 const SizedBox(width: 15),
 
