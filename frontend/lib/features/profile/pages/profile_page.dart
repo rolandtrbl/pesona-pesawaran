@@ -70,7 +70,7 @@ class ProfilePage extends StatelessWidget {
 
                 const SizedBox(width: 15),
 
-                Expanded(child: statCard('24', 'Visited', Icons.place)),
+                Expanded(child: statCard('4', 'Total Wisata', Icons.place)),
               ],
             ),
 
