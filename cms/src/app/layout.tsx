@@ -1,6 +1,6 @@
 import "./globals.css";
-import Sidebar from "../components/sidebar";
-import Topbar from "../components/topbar";
+import Sidebar from "@/app/components/sidebar";
+import Topbar from "@/app/components/topbar";
 
 export const metadata = {
   title: "Admin Pesona Pesawaran",
