@@ -19,5 +19,13 @@ yarn-debug.log*
 # TypeScript
 *.tsbuildinfo
 
+# VS Code settings
+.vscode/
+
 # MacOS
 .DS_Store
+
+# Optional: Git LFS for large assets
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
