@@ -144,15 +144,15 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            profileMenu(Icons.person_outline, 'Edit Profile'),
+            profileMenu(context, Icons.person_outline, 'Edit Profile'),
 
-            profileMenu(Icons.favorite_border, 'Favorite Wisata'),
+            profileMenu(context, Icons.favorite_border, 'Favorite Wisata'),
 
-            profileMenu(Icons.history, 'Riwayat Perjalanan'),
+            profileMenu(context, Icons.history, 'Riwayat Perjalanan'),
 
-            profileMenu(Icons.settings_outlined, 'Pengaturan'),
+            profileMenu(context, Icons.settings_outlined, 'Pengaturan'),
 
-            profileMenu(Icons.logout, 'Logout', isLogout: true),
+            profileMenu(context, Icons.logout, 'Logout', isLogout: true),
           ],
         ),
       ),
@@ -194,7 +194,12 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget profileMenu(IconData icon, String title, {bool isLogout = false}) {
+  Widget profileMenu(
+    BuildContext context,
+    IconData icon,
+    String title, {
+    bool isLogout = false,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
 
@@ -226,7 +231,41 @@ class ProfilePage extends StatelessWidget {
 
         trailing: const Icon(Icons.arrow_forward_ios, size: 18),
 
-        onTap: () {},
+        onTap: () {
+          if (isLogout) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Logout'),
+                  content: const Text('Apakah Anda yakin ingin keluar?'),
+
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+
+                      child: const Text('Batal'),
+                    ),
+
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Logout berhasil')),
+                        );
+                      },
+
+                      child: const Text('Logout'),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
