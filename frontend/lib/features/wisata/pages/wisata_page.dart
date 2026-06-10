@@ -230,150 +230,182 @@ class _WisataPageState extends State<WisataPage> {
 
               // LIST
               Expanded(
-                child: ListView.builder(
-                  itemCount: filteredWisata.length,
+  child:
+      filteredWisata.isEmpty
+          ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
 
-                  itemBuilder: (context, index) {
-                    final wisata = filteredWisata[index];
+              children: [
+                Icon(
+                  Icons.search_off,
+                  size: 90,
+                  color: Colors.grey.shade400,
+                ),
 
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 20),
+                const SizedBox(height: 20),
 
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
+                const Text(
+                  'Wisata Tidak Ditemukan',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
 
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 15,
-                          ),
-                        ],
+                const SizedBox(height: 10),
+
+                Text(
+                  'Coba gunakan kata kunci lain',
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ],
+            ),
+          )
+          : ListView.builder(
+            itemCount: filteredWisata.length,
+
+            itemBuilder: (context, index) {
+              final wisata = filteredWisata[index];
+
+              return Container(
+                margin: const EdgeInsets.only(bottom: 20),
+
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 15,
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(24),
                       ),
+
+                      child: Image.network(
+                        wisata['image'],
+                        height: 200,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(18),
 
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: [
-                          // IMAGE
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(24),
-                            ),
-
-                            child: Image.network(
-                              wisata['image'],
-                              height: 200,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                          Text(
+                            wisata['title'],
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
 
-                          // CONTENT
-                          Padding(
-                            padding: const EdgeInsets.all(18),
+                          const SizedBox(height: 8),
 
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                size: 18,
+                                color: Colors.grey,
+                              ),
 
-                              children: [
-                                Text(
-                                  wisata['title'],
+                              const SizedBox(width: 5),
 
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                              Text(
+                                wisata['location'],
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.orange,
+                                  ),
+
+                                  const SizedBox(width: 5),
+
+                                  Text(
+                                    wisata['rating'],
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (_) => DetailWisataPage(
+                                            wisata: wisata,
+                                          ),
+                                    ),
+                                  );
+                                },
+
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(
+                                    0xFF4A90E2,
+                                  ),
+
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(
+                                          14,
+                                        ),
                                   ),
                                 ),
 
-                                const SizedBox(height: 8),
-
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on,
-                                      size: 18,
-                                      color: Colors.grey,
-                                    ),
-
-                                    const SizedBox(width: 5),
-
-                                    Text(
-                                      wisata['location'],
-
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
+                                child: const Text(
+                                  'Detail',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
-
-                                const SizedBox(height: 15),
-
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.orange,
-                                        ),
-
-                                        const SizedBox(width: 5),
-
-                                        Text(
-                                          wisata['rating'],
-
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder:
-                                                (_) => DetailWisataPage(
-                                                  wisata: wisata,
-                                                ),
-                                          ),
-                                        );
-                                      },
-
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(
-                                          0xFF4A90E2,
-                                        ),
-
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            14,
-                                          ),
-                                        ),
-                                      ),
-
-                                      child: const Text(
-                                        'Detail',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
+              );
+            },
+          ),
               ),
             ],
           ),
@@ -381,7 +413,6 @@ class _WisataPageState extends State<WisataPage> {
       ),
     );
   }
-
   Widget kategori(String title) {
     final active = selectedCategory == title;
 
