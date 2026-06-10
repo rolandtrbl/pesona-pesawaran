@@ -24,10 +24,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         'Halo 👋',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
                       ),
 
                       SizedBox(height: 4),
@@ -102,9 +99,7 @@ class HomePage extends StatelessWidget {
 
                       Text(
                         'Temukan wisata terbaik di Lampung',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
@@ -116,10 +111,7 @@ class HomePage extends StatelessWidget {
               // KATEGORI
               const Text(
                 'Kategori Wisata',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 15),
@@ -139,10 +131,7 @@ class HomePage extends StatelessWidget {
               // POPULER
               const Text(
                 'Wisata Populer',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 15),
@@ -179,10 +168,7 @@ class HomePage extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
           ),
 
-          child: Icon(
-            icon,
-            color: Colors.white,
-          ),
+          child: Icon(icon, color: Colors.white),
         ),
 
         const SizedBox(height: 8),
@@ -192,11 +178,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  static Widget wisataCard(
-    String nama,
-    String lokasi,
-    String gambar,
-  ) {
+  static Widget wisataCard(String nama, String lokasi, String gambar) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -214,15 +196,37 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(20),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
 
             child: Image.network(
               gambar,
               height: 180,
               width: double.infinity,
               fit: BoxFit.cover,
+
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: 180,
+                  width: double.infinity,
+                  color: Colors.grey.shade200,
+
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    children: [
+                      Icon(
+                        Icons.image_not_supported,
+                        size: 50,
+                        color: Colors.grey,
+                      ),
+
+                      SizedBox(height: 10),
+
+                      Text('Gambar Tidak Tersedia'),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
 
@@ -244,20 +248,11 @@ class HomePage extends StatelessWidget {
 
                 Row(
                   children: [
-                    const Icon(
-                      Icons.location_on,
-                      size: 16,
-                      color: Colors.grey,
-                    ),
+                    const Icon(Icons.location_on, size: 16, color: Colors.grey),
 
                     const SizedBox(width: 4),
 
-                    Text(
-                      lokasi,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
+                    Text(lokasi, style: const TextStyle(color: Colors.grey)),
                   ],
                 ),
               ],

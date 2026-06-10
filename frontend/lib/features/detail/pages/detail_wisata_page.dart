@@ -80,13 +80,6 @@ class _DetailWisataPageState extends State<DetailWisataPage> {
                 ),
               ),
             ],
-
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                widget.wisata['image'],
-                fit: BoxFit.cover,
-              ),
-            ),
           ),
 
           SliverToBoxAdapter(
