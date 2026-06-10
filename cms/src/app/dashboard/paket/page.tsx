@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import Link from "next/link";
+import React from "react";
 
 interface Paket {
   id: number;
@@ -15,8 +16,6 @@ const dummyPaket: Paket[] = [
 ];
 
 export default function PaketPage() {
-  const [paketList, setPaketList] = useState(dummyPaket);
-
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Daftar Paket</h1>
@@ -26,14 +25,23 @@ export default function PaketPage() {
             <th className="border p-2">ID</th>
             <th className="border p-2">Nama Paket</th>
             <th className="border p-2">Harga (Rp)</th>
+            <th className="border p-2">Aksi</th> {/* Tambahkan kolom aksi */}
           </tr>
         </thead>
         <tbody>
-          {paketList.map((p) => (
+          {dummyPaket.map((p) => (
             <tr key={p.id} className="hover:bg-gray-100">
               <td className="border p-2 text-center">{p.id}</td>
               <td className="border p-2">{p.name}</td>
               <td className="border p-2 text-right">{p.harga.toLocaleString()}</td>
+              <td className="border p-2 text-center">
+                <Link
+                  href={`/dashboard/edit-paket/${p.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  Edit
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
