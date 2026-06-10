@@ -36,6 +36,60 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
 }
 
 
+// Validate ../../../src/app/dashboard/booking/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/booking">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/booking/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/destinasi/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/destinasi">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/destinasi/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/paket/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/paket">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/paket/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/pengguna/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/pengguna">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/pengguna/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/transaksi/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/transaksi">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/transaksi/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/edit-paket/[id]/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/edit-paket/[id]">> = Specific
