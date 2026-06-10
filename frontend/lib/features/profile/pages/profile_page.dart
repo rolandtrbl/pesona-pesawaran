@@ -273,7 +273,43 @@ class ProfilePage extends StatelessWidget {
 
             return;
           }
+          if (title == 'Riwayat Perjalanan') {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Riwayat Perjalanan'),
 
+                  content: const Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.history, size: 50, color: Colors.blue),
+
+                      SizedBox(height: 15),
+
+                      Text(
+                        'Belum ada riwayat perjalanan.',
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+
+                      child: const Text('Tutup'),
+                    ),
+                  ],
+                );
+              },
+            );
+
+            return;
+          }
+  
           if (isLogout) {
             showDialog(
               context: context,
