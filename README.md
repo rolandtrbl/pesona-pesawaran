@@ -54,22 +54,26 @@ Aplikasi ini dibuat untuk:
 
 
 🛠️ Tech Stack
-
 Frontend Mobile
+
 - Flutter
 - Dart
 - Material Design
-- GetX
-- Shared Preferences
-- url_launcher
+- GetX (Navigation & State Management)
+- Shared Preferences (Local Storage)
+- url_launcher (Google Maps Integration)
 
-Backend API
+Backend
 
-- 
+- REST API
+- NestJS
+- Database (PostgreSQL)
 
-CMS
+CMS Admin
 
 - Next.js
+- Tailwind CSS
+- Axios
 
 👨‍💻 Tim Pengembang
 
