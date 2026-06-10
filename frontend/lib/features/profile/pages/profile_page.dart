@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/datasource/favorite_data.dart';
+import '../../favorite/pages/favorite_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -232,6 +233,14 @@ class ProfilePage extends StatelessWidget {
         trailing: const Icon(Icons.arrow_forward_ios, size: 18),
 
         onTap: () {
+          if (title == 'Favorite Wisata') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const FavoritePage()),
+            );
+            return;
+          }
+
           if (isLogout) {
             showDialog(
               context: context,
@@ -260,7 +269,6 @@ class ProfilePage extends StatelessWidget {
                 );
               },
             );
-
             return;
           }
 
