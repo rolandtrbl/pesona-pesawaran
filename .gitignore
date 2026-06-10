@@ -1,1 +1,19 @@
-node_modules/ 
+# Node
+node_modules/
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Logs
+*.log
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# TypeScript
+*.tsbuildinfo

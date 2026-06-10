@@ -3,43 +3,43 @@ export declare class PaketTripController {
     private readonly paketTripService;
     constructor(paketTripService: PaketTripService);
     create(createPaketTripDto: any): Promise<{
+        id: number;
         namaPaket: string;
         harga: number;
         kuotaMaksimal: number;
         tanggalBerangkat: Date;
-        id: number;
         wisataId: number;
     }>;
     findAll(): Promise<{
+        id: number;
         namaPaket: string;
         harga: number;
         kuotaMaksimal: number;
         tanggalBerangkat: Date;
-        id: number;
         wisataId: number;
     }[]>;
     findOne(id: string): Promise<{
+        id: number;
         namaPaket: string;
         harga: number;
         kuotaMaksimal: number;
         tanggalBerangkat: Date;
-        id: number;
         wisataId: number;
     } | null>;
     update(id: string, updatePaketTripDto: any): Promise<{
+        id: number;
         namaPaket: string;
         harga: number;
         kuotaMaksimal: number;
         tanggalBerangkat: Date;
-        id: number;
         wisataId: number;
     }>;
     remove(id: string): Promise<{
+        id: number;
         namaPaket: string;
         harga: number;
         kuotaMaksimal: number;
         tanggalBerangkat: Date;
-        id: number;
         wisataId: number;
     }>;
 }
