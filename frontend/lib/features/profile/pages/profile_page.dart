@@ -240,6 +240,39 @@ class ProfilePage extends StatelessWidget {
             );
             return;
           }
+          if (title == 'Pengaturan') {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Pengaturan'),
+
+                  content: const Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    children: [
+                      Text('Versi Aplikasi : 1.0.0'),
+                      SizedBox(height: 10),
+                      Text('Developer : Kelompok PBS IF23D'),
+                    ],
+                  ),
+
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+
+                      child: const Text('Tutup'),
+                    ),
+                  ],
+                );
+              },
+            );
+
+            return;
+          }
 
           if (isLogout) {
             showDialog(
