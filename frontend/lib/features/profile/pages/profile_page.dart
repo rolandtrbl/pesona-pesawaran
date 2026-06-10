@@ -239,16 +239,13 @@ class ProfilePage extends StatelessWidget {
                 return AlertDialog(
                   title: const Text('Logout'),
                   content: const Text('Apakah Anda yakin ingin keluar?'),
-
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-
                       child: const Text('Batal'),
                     ),
-
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -257,14 +254,19 @@ class ProfilePage extends StatelessWidget {
                           const SnackBar(content: Text('Logout berhasil')),
                         );
                       },
-
                       child: const Text('Logout'),
                     ),
                   ],
                 );
               },
             );
+
+            return;
           }
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('$title masih dalam pengembangan')),
+          );
         },
       ),
     );
