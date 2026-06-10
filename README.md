@@ -53,14 +53,23 @@ Aplikasi ini dibuat untuk:
 
 
 
-🛠 Teknologi
+🛠️ Tech Stack
 
+Frontend Mobile
 - Flutter
 - Dart
+- Material Design
 - GetX
 - Shared Preferences
-- GitHub
+- url_launcher
 
+Backend API
+
+- 
+
+CMS
+
+- Next.js
 
 👨‍💻 Tim Pengembang
 
