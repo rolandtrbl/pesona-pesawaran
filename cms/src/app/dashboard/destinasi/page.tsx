@@ -1,5 +1,6 @@
-"use client"; // pastikan ini di paling atas
+"use client";
 
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface Destinasi {
@@ -28,6 +29,7 @@ export default function DestinasiPage() {
             <th className="border p-2">Nama Destinasi</th>
             <th className="border p-2">Lokasi</th>
             <th className="border p-2">Harga (Rp)</th>
+            <th className="border p-2">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +39,14 @@ export default function DestinasiPage() {
               <td className="border p-2">{d.name}</td>
               <td className="border p-2">{d.lokasi}</td>
               <td className="border p-2 text-right">{d.harga.toLocaleString()}</td>
+              <td className="border p-2 text-center">
+                <Link
+                  href={`/dashboard/edit-destinasi/${d.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  Edit
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

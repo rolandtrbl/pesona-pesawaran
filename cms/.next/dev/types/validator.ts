@@ -54,6 +54,51 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../../src/app/dashboard/edit-booking/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/edit-booking">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/edit-booking/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/edit-destinasi/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/edit-destinasi">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/edit-destinasi/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/edit-paket/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/edit-paket">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/edit-paket/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/edit-pengguna/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/edit-pengguna">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/edit-pengguna/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/dashboard/edit-transaksi/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/edit-transaksi">> = Specific
+  const handler = {} as typeof import("../../../src/app/dashboard/edit-transaksi/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/dashboard/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/dashboard">> = Specific
