@@ -14,27 +14,11 @@ const menu = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 min-h-screen bg-emerald-800 text-white p-6 flex flex-col">
-      {/* Judul / Logo */}
+    <aside className="w-64 min-h-screen bg-emerald-800 text-white p-6 flex flex-col justify-between">
       <div>
         <h1 className="text-2xl font-bold mb-8">Pesona Pesawaran</h1>
-
-        {/* Menu atas */}
-        <nav className="space-y-2 mb-8">
-          {menu.slice(0, 2).map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block px-4 py-3 rounded-lg hover:bg-emerald-700"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Menu bawah */}
         <nav className="space-y-2">
-          {menu.slice(2).map((item) => (
+          {menu.map((item) => (
             <Link
               key={item.href}
               href={item.href}
