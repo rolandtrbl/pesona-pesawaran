@@ -1,47 +1,82 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface Pengguna {
+type Pengguna = {
   id: number;
   nama: string;
   email: string;
   role: string;
-}
+  status: string;
+};
 
-const dummyPengguna: Pengguna[] = [
-  { id: 1, nama: "Ladia", email: "ladia@example.com", role: "Admin" },
-  { id: 2, nama: "Hajar", email: "hajar@example.com", role: "User" },
-  { id: 3, nama: "Sarah", email: "sarah@example.com", role: "User" },
+const STORAGE_KEY = "penggunaData";
+
+const defaultPengguna: Pengguna[] = [
+  {
+    id: 1,
+    nama: "Ladia",
+    email: "ladia@example.com",
+    role: "User",
+    status: "Aktif",
+  },
+  {
+    id: 2,
+    nama: "Hajar",
+    email: "hajar@example.com",
+    role: "User",
+    status: "Aktif",
+  },
 ];
 
 export default function PenggunaPage() {
-  const [penggunaList, setPenggunaList] = useState(dummyPengguna);
+  const [pengguna, setPengguna] = useState<Pengguna[]>([]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+
+    if (savedData) {
+      try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setPengguna(JSON.parse(savedData) as Pengguna[]);
+      } catch {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPengguna));
+        setPengguna(defaultPengguna);
+      }
+    } else {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPengguna));
+      setPengguna(defaultPengguna);
+    }
+  }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Daftar Pengguna</h1>
-      <table className="w-full border border-gray-300 rounded">
-        <thead className="bg-gray-200">
-          <tr>
+    <div className="rounded-lg bg-white p-6 shadow">
+      <h1 className="mb-6 text-2xl font-bold">Daftar Pengguna</h1>
+
+      <table className="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
             <th className="border p-2">ID</th>
             <th className="border p-2">Nama</th>
             <th className="border p-2">Email</th>
             <th className="border p-2">Role</th>
+            <th className="border p-2">Status</th>
             <th className="border p-2">Aksi</th>
           </tr>
         </thead>
+
         <tbody>
-          {penggunaList.map((u) => (
-            <tr key={u.id} className="hover:bg-gray-100">
-              <td className="border p-2 text-center">{u.id}</td>
-              <td className="border p-2">{u.nama}</td>
-              <td className="border p-2">{u.email}</td>
-              <td className="border p-2">{u.role}</td>
+          {pengguna.map((item) => (
+            <tr key={item.id}>
+              <td className="border p-2 text-center">{item.id}</td>
+              <td className="border p-2">{item.nama}</td>
+              <td className="border p-2">{item.email}</td>
+              <td className="border p-2 text-center">{item.role}</td>
+              <td className="border p-2 text-center">{item.status}</td>
               <td className="border p-2 text-center">
                 <Link
-                  href={`/dashboard/edit-pengguna/${u.id}`}
+                  href={`/dashboard/edit-pengguna/${item.id}`}
                   className="text-blue-600 hover:underline"
                 >
                   Edit

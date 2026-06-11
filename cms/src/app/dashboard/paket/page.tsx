@@ -1,42 +1,88 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import { useEffect, useState } from "react";
 
-interface Paket {
+type Paket = {
   id: number;
-  name: string;
+  nama: string;
+  destinasi: string;
   harga: number;
-}
+  durasi: string;
+};
 
-const dummyPaket: Paket[] = [
-  { id: 1, name: "Open Trip Marina", harga: 50000 },
-  { id: 2, name: "Open Trip Gunung Pesawaran", harga: 100000 },
-  { id: 3, name: "Open Trip Air Terjun Lemo", harga: 75000 },
+const STORAGE_KEY = "paketData";
+
+const defaultPaket: Paket[] = [
+  {
+    id: 1,
+    nama: "Open Trip Marina",
+    destinasi: "Pulau Pahawang",
+    harga: 50000,
+    durasi: "1 Hari",
+  },
+  {
+    id: 2,
+    nama: "Open Trip Gunung Pesawaran",
+    destinasi: "Gunung Pesawaran",
+    harga: 100000,
+    durasi: "1 Hari",
+  },
 ];
 
+const formatRupiah = (value: number) => {
+  return new Intl.NumberFormat("id-ID").format(value);
+};
+
 export default function PaketPage() {
+  const [paket, setPaket] = useState<Paket[]>([]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+
+    if (savedData) {
+      try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setPaket(JSON.parse(savedData) as Paket[]);
+      } catch {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPaket));
+        setPaket(defaultPaket);
+      }
+    } else {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPaket));
+      setPaket(defaultPaket);
+    }
+  }, []);
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Daftar Paket</h1>
-      <table className="w-full border border-gray-300 rounded">
-        <thead className="bg-gray-200">
-          <tr>
+    <div className="rounded-lg bg-white p-6 shadow">
+      <h1 className="mb-6 text-2xl font-bold">Daftar Paket</h1>
+
+      <table className="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
             <th className="border p-2">ID</th>
             <th className="border p-2">Nama Paket</th>
-            <th className="border p-2">Harga (Rp)</th>
-            <th className="border p-2">Aksi</th> {/* Tambahkan kolom aksi */}
+            <th className="border p-2">Destinasi</th>
+            <th className="border p-2 text-right">Harga</th>
+            <th className="border p-2">Durasi</th>
+            <th className="border p-2">Aksi</th>
           </tr>
         </thead>
+
         <tbody>
-          {dummyPaket.map((p) => (
-            <tr key={p.id} className="hover:bg-gray-100">
-              <td className="border p-2 text-center">{p.id}</td>
-              <td className="border p-2">{p.name}</td>
-              <td className="border p-2 text-right">{p.harga.toLocaleString()}</td>
+          {paket.map((item) => (
+            <tr key={item.id}>
+              <td className="border p-2 text-center">{item.id}</td>
+              <td className="border p-2">{item.nama}</td>
+              <td className="border p-2">{item.destinasi}</td>
+              <td className="border p-2 text-right">
+                {formatRupiah(item.harga)}
+              </td>
+              <td className="border p-2 text-center">{item.durasi}</td>
               <td className="border p-2 text-center">
                 <Link
-                  href={`/dashboard/edit-paket/${p.id}`}
+                  href={`/dashboard/edit-paket/${item.id}`}
                   className="text-blue-600 hover:underline"
                 >
                   Edit

@@ -1,43 +1,82 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-interface Booking {
+type Booking = {
   id: number;
-  user: string;
+  namaPengguna: string;
   paket: string;
   tanggal: string;
-}
+  status: string;
+};
 
-const bookingList: Booking[] = [
-  { id: 1, user: "Ladia", paket: "Open Trip Marina", tanggal: "2026-06-10" },
-  { id: 2, user: "Hajar", paket: "Open Trip Gunung Pesawaran", tanggal: "2026-06-11" },
+const STORAGE_KEY = "bookingData";
+
+const defaultBooking: Booking[] = [
+  {
+    id: 1,
+    namaPengguna: "Ladia",
+    paket: "Open Trip Marina",
+    tanggal: "2026-06-10",
+    status: "Pending",
+  },
+  {
+    id: 2,
+    namaPengguna: "Hajar",
+    paket: "Open Trip Gunung Pesawaran",
+    tanggal: "2026-06-12",
+    status: "Dikonfirmasi",
+  },
 ];
 
 export default function BookingPage() {
+  const [booking, setBooking] = useState<Booking[]>([]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+
+    if (savedData) {
+      try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setBooking(JSON.parse(savedData) as Booking[]);
+      } catch {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultBooking));
+        setBooking(defaultBooking);
+      }
+    } else {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultBooking));
+      setBooking(defaultBooking);
+    }
+  }, []);
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Daftar Booking</h1>
-      <table className="w-full border border-gray-300 rounded">
-        <thead className="bg-gray-200">
-          <tr>
+    <div className="rounded-lg bg-white p-6 shadow">
+      <h1 className="mb-6 text-2xl font-bold">Daftar Booking</h1>
+
+      <table className="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
             <th className="border p-2">ID</th>
             <th className="border p-2">Nama Pengguna</th>
             <th className="border p-2">Paket</th>
             <th className="border p-2">Tanggal</th>
+            <th className="border p-2">Status</th>
             <th className="border p-2">Aksi</th>
           </tr>
         </thead>
+
         <tbody>
-          {bookingList.map((b: Booking) => (
-            <tr key={b.id} className="hover:bg-gray-100">
-              <td className="border p-2 text-center">{b.id}</td>
-              <td className="border p-2">{b.user}</td>
-              <td className="border p-2">{b.paket}</td>
-              <td className="border p-2">{b.tanggal}</td>
-              <td className="border p-2">
+          {booking.map((item) => (
+            <tr key={item.id}>
+              <td className="border p-2 text-center">{item.id}</td>
+              <td className="border p-2">{item.namaPengguna}</td>
+              <td className="border p-2">{item.paket}</td>
+              <td className="border p-2 text-center">{item.tanggal}</td>
+              <td className="border p-2 text-center">{item.status}</td>
+              <td className="border p-2 text-center">
                 <Link
-                  href={`/dashboard/edit-booking/${b.id}`}
+                  href={`/dashboard/edit-booking/${item.id}`}
                   className="text-blue-600 hover:underline"
                 >
                   Edit

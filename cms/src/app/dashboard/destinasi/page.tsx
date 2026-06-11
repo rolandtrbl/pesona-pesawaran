@@ -1,47 +1,83 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface Destinasi {
+type Destinasi = {
   id: number;
-  name: string;
+  nama: string;
   lokasi: string;
   harga: number;
-}
+};
 
-const dummyDestinasi: Destinasi[] = [
-  { id: 1, name: "Pantai Marina", lokasi: "Pesawaran", harga: 50000 },
-  { id: 2, name: "Gunung Pesawaran", lokasi: "Pesawaran", harga: 100000 },
-  { id: 3, name: "Air Terjun Lemo", lokasi: "Pesawaran", harga: 75000 },
+const STORAGE_KEY = "destinasiData";
+
+const defaultDestinasi: Destinasi[] = [
+  {
+    id: 1,
+    nama: "Pulau Pahawang",
+    lokasi: "Pesawaran",
+    harga: 50000,
+  },
+  {
+    id: 2,
+    nama: "Pantai Mutun",
+    lokasi: "Pesawaran",
+    harga: 30000,
+  },
 ];
 
+const formatRupiah = (value: number) => {
+  return new Intl.NumberFormat("id-ID").format(value);
+};
+
 export default function DestinasiPage() {
-  const [destinasiList, setDestinasiList] = useState(dummyDestinasi);
+  const [destinasi, setDestinasi] = useState<Destinasi[]>([]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+
+    if (savedData) {
+      try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setDestinasi(JSON.parse(savedData) as Destinasi[]);
+      } catch {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultDestinasi));
+        setDestinasi(defaultDestinasi);
+      }
+    } else {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultDestinasi));
+      setDestinasi(defaultDestinasi);
+    }
+  }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Daftar Destinasi</h1>
-      <table className="w-full border border-gray-300 rounded">
-        <thead className="bg-gray-200">
-          <tr>
+    <div className="rounded-lg bg-white p-6 shadow">
+      <h1 className="mb-6 text-2xl font-bold">Daftar Destinasi</h1>
+
+      <table className="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
             <th className="border p-2">ID</th>
             <th className="border p-2">Nama Destinasi</th>
             <th className="border p-2">Lokasi</th>
-            <th className="border p-2">Harga (Rp)</th>
+            <th className="border p-2 text-right">Harga</th>
             <th className="border p-2">Aksi</th>
           </tr>
         </thead>
+
         <tbody>
-          {destinasiList.map((d) => (
-            <tr key={d.id} className="hover:bg-gray-100">
-              <td className="border p-2 text-center">{d.id}</td>
-              <td className="border p-2">{d.name}</td>
-              <td className="border p-2">{d.lokasi}</td>
-              <td className="border p-2 text-right">{d.harga.toLocaleString()}</td>
+          {destinasi.map((item) => (
+            <tr key={item.id}>
+              <td className="border p-2 text-center">{item.id}</td>
+              <td className="border p-2">{item.nama}</td>
+              <td className="border p-2">{item.lokasi}</td>
+              <td className="border p-2 text-right">
+                {formatRupiah(item.harga)}
+              </td>
               <td className="border p-2 text-center">
                 <Link
-                  href={`/dashboard/edit-destinasi/${d.id}`}
+                  href={`/dashboard/edit-destinasi/${item.id}`}
                   className="text-blue-600 hover:underline"
                 >
                   Edit
