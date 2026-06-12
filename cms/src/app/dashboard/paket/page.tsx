@@ -45,18 +45,35 @@ export default function PaketPage() {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setPaket(JSON.parse(savedData) as Paket[]);
       } catch {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPaket));
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(defaultPaket)
+        );
         setPaket(defaultPaket);
       }
     } else {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPaket));
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(defaultPaket)
+      );
       setPaket(defaultPaket);
     }
   }, []);
 
   return (
     <div className="rounded-lg bg-white p-6 shadow">
-      <h1 className="mb-6 text-2xl font-bold">Daftar Paket</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">
+          Daftar Paket
+        </h1>
+
+        <Link
+          href="/dashboard/tambah-paket"
+          className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+        >
+          + Tambah Paket
+        </Link>
+      </div>
 
       <table className="w-full border-collapse border border-gray-300">
         <thead>
@@ -73,13 +90,26 @@ export default function PaketPage() {
         <tbody>
           {paket.map((item) => (
             <tr key={item.id}>
-              <td className="border p-2 text-center">{item.id}</td>
-              <td className="border p-2">{item.nama}</td>
-              <td className="border p-2">{item.destinasi}</td>
-              <td className="border p-2 text-right">
-                {formatRupiah(item.harga)}
+              <td className="border p-2 text-center">
+                {item.id}
               </td>
-              <td className="border p-2 text-center">{item.durasi}</td>
+
+              <td className="border p-2">
+                {item.nama}
+              </td>
+
+              <td className="border p-2">
+                {item.destinasi}
+              </td>
+
+              <td className="border p-2 text-right">
+                Rp {formatRupiah(item.harga)}
+              </td>
+
+              <td className="border p-2 text-center">
+                {item.durasi}
+              </td>
+
               <td className="border p-2 text-center">
                 <Link
                   href={`/dashboard/edit-paket/${item.id}`}

@@ -1,5 +1,5 @@
 {
   "/dashboard/destinasi/page": "app/dashboard/destinasi/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/tambah-destinasi/page": "app/dashboard/tambah-destinasi/page.js"
+  "/dashboard/paket/page": "app/dashboard/paket/page.js",
+  "/dashboard/tambah-paket/page": "app/dashboard/tambah-paket/page.js"
 }
