@@ -46,18 +46,35 @@ export default function TransaksiPage() {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setTransaksi(parsedData);
       } catch {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultTransaksi));
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(defaultTransaksi)
+        );
         setTransaksi(defaultTransaksi);
       }
     } else {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultTransaksi));
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(defaultTransaksi)
+      );
       setTransaksi(defaultTransaksi);
     }
   }, []);
 
   return (
     <div className="rounded-lg bg-white p-6 shadow">
-      <h1 className="mb-6 text-2xl font-bold">Daftar Transaksi</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">
+          Daftar Transaksi
+        </h1>
+
+        <Link
+          href="/dashboard/tambah-transaksi"
+          className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+        >
+          + Tambah Transaksi
+        </Link>
+      </div>
 
       <table className="w-full border-collapse border border-gray-300">
         <thead>
@@ -78,7 +95,7 @@ export default function TransaksiPage() {
               <td className="border p-2">{item.nama}</td>
               <td className="border p-2">{item.paket}</td>
               <td className="border p-2 text-right">
-                {formatRupiah(item.total)}
+                Rp {formatRupiah(item.total)}
               </td>
               <td className="border p-2 text-center">{item.status}</td>
               <td className="border p-2 text-center">
