@@ -52,7 +52,16 @@ export default function BookingPage() {
 
   return (
     <div className="rounded-lg bg-white p-6 shadow">
-      <h1 className="mb-6 text-2xl font-bold">Daftar Booking</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Daftar Booking</h1>
+
+        <Link
+          href="/dashboard/tambah-booking"
+          className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+        >
+          + Tambah Booking
+        </Link>
+      </div>
 
       <table className="w-full border-collapse border border-gray-300">
         <thead>
