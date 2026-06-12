@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../data/datasource/favorite_data.dart';
 import '../../favorite/pages/favorite_page.dart';
+import 'package:get/get.dart';
+import '../../../routes/app_pages.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -309,7 +311,7 @@ class ProfilePage extends StatelessWidget {
 
             return;
           }
-  
+
           if (isLogout) {
             showDialog(
               context: context,
@@ -328,10 +330,9 @@ class ProfilePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Logout berhasil')),
-                        );
+                        Get.offAllNamed(AppPages.login);
                       },
+
                       child: const Text('Logout'),
                     ),
                   ],

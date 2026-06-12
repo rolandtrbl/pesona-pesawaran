@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
     Timer(
       const Duration(seconds: 3),
       () {
-        Get.offAllNamed(AppPages.navbar);
+        Get.offAllNamed(AppPages.login);
       },
     );
   }
