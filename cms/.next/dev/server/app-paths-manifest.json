@@ -1,9 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/dashboard/booking/page": "app/dashboard/booking/page.js",
   "/dashboard/destinasi/page": "app/dashboard/destinasi/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/paket/page": "app/dashboard/paket/page.js",
-  "/dashboard/pengguna/page": "app/dashboard/pengguna/page.js",
-  "/dashboard/transaksi/page": "app/dashboard/transaksi/page.js"
+  "/dashboard/tambah-destinasi/page": "app/dashboard/tambah-destinasi/page.js"
 }

@@ -155,7 +155,7 @@ export default function EditPenggunaPage() {
             Email
           </label>
           <input
-            type="email"
+            type="email" 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded border border-gray-300 px-4 py-2 outline-none focus:border-green-700"
