@@ -42,6 +42,7 @@ export default function PaketPage() {
 
     if (savedData) {
       try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setPaket(JSON.parse(savedData) as Paket[]);
       } catch {
         localStorage.setItem(
