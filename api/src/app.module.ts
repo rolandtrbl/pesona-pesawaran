@@ -6,9 +6,10 @@ import { PrismService } from './prism/prism.service';
 import { WisataModule } from './wisata/wisata.module';
 import { PaketTripModule } from './paket-trip/paket-trip.module';
 import { BookingModule } from './booking/booking.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [PrismaModule, WisataModule, PaketTripModule, BookingModule],
+  imports: [PrismaModule, WisataModule, PaketTripModule, BookingModule, AuthModule],
   controllers: [AppController],
   providers: [AppService, PrismService],
 })

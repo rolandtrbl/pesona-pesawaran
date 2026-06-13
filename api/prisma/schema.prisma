@@ -42,3 +42,12 @@ model Booking {
   statusBayar    String    @default("PENDING") // PENDING, LUNAS, BATAL
   createdAt      DateTime  @default(now())
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
