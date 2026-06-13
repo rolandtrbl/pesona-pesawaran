@@ -42,7 +42,6 @@ export default function PaketPage() {
 
     if (savedData) {
       try {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setPaket(JSON.parse(savedData) as Paket[]);
       } catch {
         localStorage.setItem(
@@ -59,6 +58,25 @@ export default function PaketPage() {
       setPaket(defaultPaket);
     }
   }, []);
+
+  const handleDelete = (id: number) => {
+    const confirmDelete = window.confirm(
+      "Yakin ingin menghapus paket ini?"
+    );
+
+    if (!confirmDelete) return;
+
+    const updatedData = paket.filter(
+      (item) => item.id !== id
+    );
+
+    setPaket(updatedData);
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(updatedData)
+    );
+  };
 
   return (
     <div className="rounded-lg bg-white p-6 shadow">
@@ -111,12 +129,23 @@ export default function PaketPage() {
               </td>
 
               <td className="border p-2 text-center">
-                <Link
-                  href={`/dashboard/edit-paket/${item.id}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  Edit
-                </Link>
+                <div className="flex justify-center gap-3">
+                  <Link
+                    href={`/dashboard/edit-paket/${item.id}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Edit
+                  </Link>
+
+                  <button
+                    onClick={() =>
+                      handleDelete(item.id)
+                    }
+                    className="text-red-600 hover:underline"
+                  >
+                    Hapus
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
