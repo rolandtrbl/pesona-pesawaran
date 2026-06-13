@@ -57,6 +57,25 @@ export default function DestinasiPage() {
     }
   }, []);
 
+  const handleDelete = (id: number) => {
+    const confirmDelete = window.confirm(
+      "Yakin ingin menghapus destinasi ini?"
+    );
+
+    if (!confirmDelete) return;
+
+    const updatedData = destinasi.filter(
+      (item) => item.id !== id
+    );
+
+    setDestinasi(updatedData);
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(updatedData)
+    );
+  };
+
   return (
     <div className="rounded-lg bg-white p-6 shadow">
       <div className="mb-6 flex items-center justify-between">
@@ -103,12 +122,23 @@ export default function DestinasiPage() {
               </td>
 
               <td className="border p-2 text-center">
-                <Link
-                  href={`/dashboard/edit-destinasi/${item.id}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  Edit
-                </Link>
+                <div className="flex justify-center gap-3">
+                  <Link
+                    href={`/dashboard/edit-destinasi/${item.id}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Edit
+                  </Link>
+
+                  <button
+                    onClick={() =>
+                      handleDelete(item.id)
+                    }
+                    className="text-red-600 hover:underline"
+                  >
+                    Hapus
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
