@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../services/auth_service.dart';
+import '../../../routes/app_pages.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -216,14 +217,18 @@ class _RegisterPageState extends State<RegisterPage> {
                               password: passwordController.text,
                             );
 
+                            print('REGISTER RESPONSE = $response');
+
                             if (response['statusCode'] == 201) {
+                              print('MASUK SUCCESS');
+                              
                               Get.snackbar(
                                 'Berhasil',
                                 'Akun berhasil dibuat',
                                 snackPosition: SnackPosition.BOTTOM,
                               );
 
-                              Get.back();
+                              Get.offAllNamed(AppPages.login);
                             } else {
                               Get.snackbar(
                                 'Gagal',

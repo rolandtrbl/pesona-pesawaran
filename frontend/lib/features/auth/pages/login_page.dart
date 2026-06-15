@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final AuthService authService = AuthService();
 
   bool isPasswordHidden = true;
   @override
@@ -155,9 +158,44 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       height: 55,
                       child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                        onPressed: () async {
+                          if (!_formKey.currentState!.validate()) return;
+
+                          try {
+                            final result = await authService.login(
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
+                            );
+
+                            final prefs = await SharedPreferences.getInstance();
+
+                            await prefs.setString(
+                              'token',
+                              result['data']['access_token'],
+                            );
+
+                            await prefs.setString(
+                              'nama',
+                              result['data']['user']['nama'],
+                            );
+
+                            await prefs.setString(
+                              'email',
+                              result['data']['user']['email'],
+                            );
+
+                            await prefs.setInt(
+                              'user_id',
+                              result['data']['user']['id'],
+                            );
+
                             Get.offAllNamed(AppPages.navbar);
+                          } catch (e) {
+                            Get.snackbar(
+                              'Login Gagal',
+                              e.toString(),
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
                           }
                         },
                         style: ElevatedButton.styleFrom(
