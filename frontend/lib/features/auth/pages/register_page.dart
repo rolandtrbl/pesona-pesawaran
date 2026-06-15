@@ -217,11 +217,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               password: passwordController.text,
                             );
 
-                            print('REGISTER RESPONSE = $response');
-
-                            if (response['statusCode'] == 201) {
-                              print('MASUK SUCCESS');
-                              
+                            if (response['statusCode'] == 201) {                         
                               Get.snackbar(
                                 'Berhasil',
                                 'Akun berhasil dibuat',

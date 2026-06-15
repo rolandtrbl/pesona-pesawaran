@@ -1,11 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/datasource/favorite_data.dart';
 import '../../favorite/pages/favorite_page.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String nama = 'Guest';
+  String email = '-';
+
+  @override
+  void initState() {
+    super.initState();
+    loadUser();
+  }
+
+  Future<void> loadUser() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      nama = prefs.getString('nama') ?? 'Guest';
+      email = prefs.getString('email') ?? '-';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +70,14 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 20),
 
             // NAME
-            const Text(
-              'Muwjon',
+            Text(
+              nama,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 8),
 
-            const Text(
-              'Traveler & Explorer',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-            ),
+            Text(email, style: TextStyle(color: Colors.grey, fontSize: 16)),
 
             const SizedBox(height: 30),
 
